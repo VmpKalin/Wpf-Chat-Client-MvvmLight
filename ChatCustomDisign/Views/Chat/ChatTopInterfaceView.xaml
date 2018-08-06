@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChatCustomDisign.Views.Chat"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="1000" >
+             mc:Ignorable="d" >
     <UserControl.Resources>
         <Style x:Key="Search" TargetType="{x:Type TextBoxBase}">
             <Setter Property="Foreground" Value="White"/>
@@ -36,16 +35,16 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Background="DimGray" MinWidth="900">
+    <Grid Background="DimGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="5 0" MinWidth="300" HorizontalAlignment="Left">
+        <StackPanel Name="SearchContainer" Orientation="Horizontal" MinWidth="200"  MaxWidth="300" Margin="5 0" HorizontalAlignment="Left">
             <Button HorizontalAlignment="Center" Height="30" Width="30" Margin="5" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}">
                 <materialDesign:PackIcon Kind="Menu" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="LightGray"/>
             </Button>
-            <TextBox Tag="Search" Style="{StaticResource Search}" Width="235" Background="Gray"  Margin="5" Padding="3 0" Foreground="LightGray" FontSize="15" Text="" />
+            <TextBox Tag="Search" Style="{StaticResource Search}" Width="200" Background="Gray" Margin="5" Padding="3 0" Foreground="LightGray" FontSize="15" Text="" />
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -53,7 +52,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="20" Margin="20 0" Width="auto" Text="John Smitt" FontFamily="Italic" FontWeight="DemiBold" VerticalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Left" FontSize="20" Margin="0" Width="auto" Text="John Smitt" FontFamily="Italic" FontWeight="DemiBold" VerticalAlignment="Center"/>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="30 0" HorizontalAlignment="Right">
                 <Button HorizontalAlignment="Right" Height="30" Width="30" Margin="5" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}">

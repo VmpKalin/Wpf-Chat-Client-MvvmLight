@@ -6,15 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatCustomDisign.Views.Chat"
         mc:Ignorable="d"
-        Title="ChatWindowContainer" WindowStyle="None" BorderThickness="0" Height="Auto" Width="900">
+        Title="ChatWindowContainer" MinHeight="750" MinWidth="800" WindowStyle="None" BorderThickness="0" Height="700" Width="auto">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.07*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*" MinWidth="250" MaxWidth="300"></ColumnDefinition>
+            <ColumnDefinition MinWidth="700"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <local:ChatTopInterfaceView Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"/>
         <local:ChatUsersView Grid.Row="1" Grid.Column="0"/>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChatCustomDisign.Views.Chat"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" DataContext="{Binding Chat, Source={StaticResource Locator}}"
              d:DesignHeight="600" d:DesignWidth="300" BorderThickness="0">
@@ -93,8 +94,6 @@
             </Style.Triggers>
         </Style>
 
-
-
         <Style x:Key="{x:Type ListView}" TargetType="ListView">
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
             <Setter Property="Background" Value="{x:Null}"/>
@@ -117,7 +116,7 @@
             <Setter Property="Margin" Value="0"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True" >
                     <Setter Property="BorderThickness" Value="0" />
@@ -125,7 +124,7 @@
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True" >
                     <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="FontSize" Value="14"/>
                 </Trigger>
                 <Trigger Property="IsFocused" Value="True" >
                     <Setter Property="BorderThickness" Value="0" />
@@ -134,49 +133,51 @@
             </Style.Triggers>
 
         </Style>
+        
+        <local:DoubleToMarginConverter x:Key="doubleToMarginConverter"/>
     </UserControl.Resources>
-    <Grid x:Name="UserContainer" MinWidth="300" Width="auto">
+    <Grid x:Name="UserContainer" VerticalAlignment="Stretch" Width="auto">
         <Grid.Background>
             <LinearGradientBrush>
                 <GradientStop Color="DimGray" Offset="0"/>
                 <GradientStop Color="Gray" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-            <ScrollViewer Height="600" Margin="0 0 3 0">
-                <ListView ItemsSource="{Binding People}" Width="{Binding ElementName=UserContainer, Path=Width}" Height="{Binding ElementName=UserContainer, Path=Height}">
+            <ScrollViewer VerticalAlignment="Stretch" Margin="0">
+            <ListView Name="ChatList" VerticalAlignment="Top" ItemsSource="{Binding People}" Width="{Binding ElementName=UserContainer, Path=Width}" Height="{Binding ElementName=UserContainer, Path=Height}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Ellipse Height="50" Width="50" Margin="15 0 15 0" HorizontalAlignment="Center" Stroke="White" StrokeThickness="1">
+                        <StackPanel Width="{Binding ElementName=ChatList, Path=ActualWidth}">
+                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                    <Ellipse Height="50" Width="50" Margin="15 0 15 0" HorizontalAlignment="Center" StrokeThickness="0">
                                         <Ellipse.Fill>
                                             <ImageBrush ImageSource="../../Pictures/pexels-photo-192439.jpeg" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
-                                    <Grid Width="210" VerticalAlignment="Center" Margin="5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*"></RowDefinition>
-                                            <RowDefinition Height="0.5*"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=ChatList, Path=ActualWidth,  ConverterParameter=80}" Margin="5 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.5*"></RowDefinition>
+                                        <RowDefinition Height="0.5*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="0.75*"/>
+                                    </Grid.ColumnDefinitions>
+                                            <StackPanel TextBlock.FontSize="15" HorizontalAlignment="Left" Width="auto" Orientation="Horizontal">
                                                 <TextBlock Text="{Binding FirstName, StringFormat=\{0\}}" />
                                                 <TextBlock Text=" "/>
                                                 <TextBlock Text="{Binding LastName}" />
                                             </StackPanel>
                                             <TextBlock Grid.Row="0" Grid.Column="1"  Text="03.10.01" Margin="0 0 10 0" HorizontalAlignment="Right"/>
-                                            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="User message..." Foreground="LightGray"/>
+                                            <TextBlock Grid.Row="1" Text="User message..." Foreground="LightGray"/>
                                             
-                                            <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0 2 10 0" Width="auto" Height="auto">
-                                                <Rectangle RadiusX="5" RadiusY="5">
+                                            <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0 3 10 0" Width="auto" Height="auto">
+                                                <Rectangle RadiusX="7" RadiusY="7">
                                                     <Rectangle.Fill>
                                                         <SolidColorBrush Color="DarkGray"/>
                                                     </Rectangle.Fill>
                                                 </Rectangle>
-                                                <TextBlock HorizontalAlignment="Center" Text="2" Margin="6 1" TextAlignment="Center" VerticalAlignment="Center"/>
+                                                <TextBlock HorizontalAlignment="Center" Text="241234" Margin="5 2 5 0" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"/>
                                             </Grid>
                                     </Grid>
                                 </StackPanel>

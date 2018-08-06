@@ -1,23 +1,21 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
 namespace ChatCustomDisign.Views.Chat
 {
-    public class DoubleToMarginConverter : IMultiValueConverter
+    public class DoubleToMarginConverter : IValueConverter
     {
-
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var left = (double)values[0];
-            var top = (double)values[1];
-            var right = (double)values[2];
-            var bottom = (double)values[3];
-
-            return new Thickness(left, top, right, bottom);
+            var width = (double)value;
+            var diffStr = (string)parameter;
+            var diff = double.Parse(diffStr);
+            return width-diff;
         }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
