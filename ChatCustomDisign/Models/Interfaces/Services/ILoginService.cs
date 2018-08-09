@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChatCustomDisign.Models.Autho;
+using ChatCustomDisign.Models.DTO;
+using ChatCustomDisign.Models.Template;
 
 namespace ChatCustomDisign.Models.Interfaces.Services
 {
     public interface ILoginService
     {
-        Task LoginUser(string login, string password);
+        bool LoginUser(LoginRequest login);
+        UserResponce GetUserInfo();
     }
 }

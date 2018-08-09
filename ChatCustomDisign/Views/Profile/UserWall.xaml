@@ -1,0 +1,73 @@
+﻿<Window x:Class="ChatCustomDisign.Views.Profile.UserWall"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatCustomDisign.Views.Profile"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:chat="clr-namespace:ChatCustomDisign.Views.Chat"
+        mc:Ignorable="d"
+        Title="UserWall" Width="400">
+<Window.Resources>
+    <chat:DoubleToMarginConverter x:Key="doubleToMarginConverter"/>
+</Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <ScrollViewer x:Name="PostsContainer" Margin="0" Padding="0" BorderThickness="0" VerticalScrollBarVisibility="Hidden" Background="LightGray">
+                <ListView x:Name="Posts" Width="{Binding ElementName=PostsContainer, Path=ActualWidth}" Margin="0" Padding="0" BorderThickness="0">
+                    <ListViewItem x:Name="Post" Margin="0" Padding="0" Width="{Binding ElementName=Posts, Path=ActualWidth}" HorizontalAlignment="Center" Height="auto">
+                        <Grid x:Name="PostContainer" Background="{x:Null}" Margin="0 10 0 0" HorizontalAlignment="Center" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=Posts, Path=ActualWidth,  ConverterParameter=0}" Height="auto">
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="5" Direction="50" ShadowDepth="2" />
+                            </Grid.Effect>
+                            <Rectangle Fill="White" RadiusX="0" RadiusY="0"/>
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.1*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="0.1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Button></Button>
+                                </Grid>
+                                <TextBlock Grid.Row="1" FontSize="14">Text to post</TextBlock>
+                                <Image Grid.Row="2" Margin="0 10 0 0" HorizontalAlignment="Center" Source="../../Pictures/pexels-photo-192439.jpeg" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=PostContainer, Path=ActualWidth,  ConverterParameter=40}"></Image>
+                                <Grid Grid.Row="3" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Background="{x:Null}" BorderThickness="0" Grid.Column="0" TextBlock.Foreground="Black" Margin="5">Like</Button>
+                                    <Button Background="{x:Null}" BorderThickness="0" Grid.Column="1" TextBlock.Foreground="Black" Margin="5">Comment</Button>
+                                    <Button Background="{x:Null}" BorderThickness="0" Grid.Column="2" TextBlock.Foreground="Black" Margin="5">Share</Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ListViewItem>
+                </ListView>
+            <!--<Grid x:Name="Post">
+                            <materialDesign:Card
+                                materialDesign:ShadowAssist.ShadowDepth="Depth2" 
+                                Padding=""
+                                Width="{Binding ElementName=Post, Path=ActualWidth}"
+                                Height="{Binding ElementName=Post, Path=ActualHeight}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+
+                                    </Grid.ColumnDefinitions>
+                                    </Grid>
+                            </materialDesign:Card>
+                        </Grid>-->
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

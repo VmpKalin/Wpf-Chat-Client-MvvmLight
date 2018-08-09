@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
+using System.Windows.Input;
 using ChatCustomDisign.Models.DTO;
 using ChatCustomDisign.Models.Interfaces.Services;
+using ChatCustomDisign.Views.Chat;
+using ChatCustomDisign.Views.Profile;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Newtonsoft.Json;
 
 namespace ChatCustomDisign.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
         private LoginRequest _login;
-        private ILoginService _loginService;
+        private readonly ILoginService _loginService;
 
         public LoginViewModel(ILoginService service)
         {
@@ -23,43 +20,67 @@ namespace ChatCustomDisign.ViewModels
             _login = new LoginRequest();
         }
 
-        public string Login
+
+
+        public LoginRequest Login
         {
-            get => _login.Login;
+            get => _login;
             set
             {
-                _login.Login = value;
-                RaisePropertyChanged("Login");
+                _login = value;
+                RaisePropertyChanged("Login");  
             }
         }
 
-        public string Password
-        {
-            get => _login.Password;
-            set
-            {
-                _login.Password = value;
-                RaisePropertyChanged("Password");
-            }
-        }
+        RelayCommand<Window> _singUp;
 
-        public RelayCommand SingUp
+        public RelayCommand<Window> SingUp
         {
             get
             {
-                return new RelayCommand(() => SingUpToProfile().GetAwaiter().GetResult(), null);
-
+                if (_singUp == null)
+                    _singUp = new RelayCommand<Window>(SingUpToProfile);
+                return _singUp;
             }
         }
 
-        private async Task SingUpToProfile()
+        RelayCommand<Window> _exit;
+
+        public RelayCommand<Window> Exit
         {
-            await _loginService.LoginUser(Login, Password);
+            get
+            {
+                if(_exit==null)
+                    _exit = new RelayCommand<Window>(CloseWindow);
+                return _exit;
+            }
         }
 
-        private bool CanExecuteSingUp()
+        public void CloseWindow(Window window)
         {
-            if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
+            window.Close();
+        }
+
+        private void SingUpToProfile(Window window)
+        {
+            if (string.IsNullOrEmpty(_login.Login) || string.IsNullOrEmpty(_login.Password))
+            {
+                return;
+            }
+         
+            var isAuthorized = _loginService.LoginUser(_login);
+
+            if (isAuthorized)
+            {
+                window.Hide();
+                window = new MainWindowContainer(new UserPage());
+                window.Show();
+            }
+        }
+
+        public bool CanExecuteSingUp()
+        {
+            if (string.IsNullOrEmpty(_login.Login) || string.IsNullOrEmpty(_login.Password))
             {
                 return false;
             }

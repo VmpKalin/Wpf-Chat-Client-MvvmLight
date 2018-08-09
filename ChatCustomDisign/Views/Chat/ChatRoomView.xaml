@@ -34,12 +34,10 @@
                                         <SolidColorBrush Color="LightGray"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <TextBlock Name="Message"  Height="auto" Width="auto">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0">
+                                    <StackPanel Name="Message" Orientation="Horizontal" VerticalAlignment="Center" Margin="0">
                                         <TextBlock HorizontalAlignment="Left" Margin="10 5" TextWrapping="Wrap" MaxWidth="300">My message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yopta</TextBlock>
                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 5"> 20:08</TextBlock>
                                     </StackPanel>
-                                </TextBlock>
                             </Grid>
                         </StackPanel>
                     </ListViewItem>

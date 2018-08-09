@@ -48,7 +48,9 @@ namespace ChatCustomDisign.ViewModel
 
 
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<MainWindowViewModel>();
             SimpleIoc.Default.Register<ChatWindowViewModel>();
+            SimpleIoc.Default.Register<ProfileViewModel>();
         }
 
         public LoginViewModel Login
@@ -56,6 +58,23 @@ namespace ChatCustomDisign.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+
+        public ProfileViewModel UserProfile
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ProfileViewModel>();
+            }
+        }
+
+
+        public MainWindowViewModel MainContainer
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainWindowViewModel>();
             }
         }
 

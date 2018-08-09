@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatCustomDisign.Views.Chat"
         mc:Ignorable="d"
-        Title="ChatWindowContainer" MinHeight="750" MinWidth="800" WindowStyle="None" BorderThickness="0" Height="700" Width="auto">
+        Title="ChatWindowContainer" MinWidth="800" WindowStyle="None" BorderThickness="0" Height="700" Width="auto" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -16,7 +16,7 @@
             <ColumnDefinition Width="0.3*" MinWidth="250" MaxWidth="300"></ColumnDefinition>
             <ColumnDefinition MinWidth="700"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <local:ChatTopInterfaceView Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"/>
+        <local:ChatTopInterfaceView Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" MinWidth="1200"/>
         <local:ChatUsersView Grid.Row="1" Grid.Column="0"/>
         <local:ChatRoomView Grid.Row="1" Grid.Column="1"/>
     </Grid>

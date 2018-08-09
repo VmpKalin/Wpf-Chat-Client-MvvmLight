@@ -84,7 +84,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Template\UserModel.cs" />
+    <Compile Include="Models\Template\UserResponce.cs" />
     <Compile Include="Services\SocketService.cs" />
+    <Compile Include="Views\AddintionViews\MenuContainerView.xaml.cs">
+      <DependentUpon>MenuContainerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Chat\DoubleToMarginConverter.cs" />
     <Compile Include="MainWindowContainer.xaml.cs">
       <DependentUpon>MainWindowContainer.xaml</DependentUpon>
@@ -119,14 +124,27 @@
     <Compile Include="Views\Chat\ChatWindowContainer.xaml.cs">
       <DependentUpon>ChatWindowContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Profile\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Profile\UserWall.xaml.cs">
+      <DependentUpon>UserWall.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindowContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddintionViews\MenuContainerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,7 +164,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Login\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\UserWall.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,9 +196,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\digital-7 %28mono%29.ttf" />
+    <Resource Include="Fonts\digital-7.ttf" />
+    <Resource Include="Fonts\Crasng.ttf" />
+    <Resource Include="Fonts\Crasns.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -179,7 +213,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Profile\" />
+    <Resource Include="Pictures\ProfileBg.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\menu_1.jpg" />
@@ -198,6 +232,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\user %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\LoginBg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

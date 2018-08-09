@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatCustomDisign"
+        xmlns:Views="clr-namespace:ChatCustomDisign.Views.AddintionViews"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Name="WindowMain"
         mc:Ignorable="d"
-        Title="MainWindowContainer" BorderThickness="0" MinHeight="600"  MaxHeight="700" Width="1080" Height="600" MinWidth="1000">
-
+        DataContext="{Binding MainContainer, Source={StaticResource Locator}}"
+        Title="MainWindowContainer" BorderThickness="0" WindowStyle="None" Margin="0" Padding="0">
     <Window.Resources>
 
         <ControlTemplate x:Key="MyButtonTemplate" TargetType="{x:Type Button}">
@@ -44,7 +46,6 @@
 
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
         <Style TargetType="Button" x:Key="ButtonMenu">
             <Setter Property="Width" Value="280"/>
             <Setter Property="Height" Value="60"/>
@@ -76,10 +77,6 @@
             <Setter Property="Foreground" Value="AliceBlue"/>
             <Setter Property="Width" Value="300"/>
             <Setter Property="FontFamily" Value="Champagne &amp; Limousines"/>
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9449b0"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#9449b0"/>
-            </Style.Resources>
         </Style>
 
         <Style TargetType="ListViewItem">
@@ -92,6 +89,7 @@
                 <Trigger Property="IsSelected" Value="True" >
                     <Setter Property="BorderThickness" Value="0" />
                     <Setter Property="Background" Value="AliceBlue"/>
+                    <Setter Property="Foreground" Value="Black"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True" >
                     <Setter Property="BorderThickness" Value="0 1 0 1" />
@@ -102,17 +100,11 @@
                     <Setter Property="Background" Value="LightBlue"/>
                 </Trigger>
             </Style.Triggers>
-
         </Style>
 
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuContainer">
                 <EasingDoubleKeyFrame KeyTime="0" Value="300"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ColorAnimation Storyboard.TargetName="MainContainer" Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" To="LightGray"/>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="MenuContainer">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -121,13 +113,7 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300"/>
             </DoubleAnimationUsingKeyFrames>
-            <ColorAnimation Storyboard.TargetName="MainContainer" Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" To="Gray"/>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="MenuContainer">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
     </Window.Resources>
 
     <Window.Triggers>
@@ -141,23 +127,20 @@
     </Window.Triggers>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60"></ColumnDefinition>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="MainContainer" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Background="LightGray">
+        
+        <ContentControl x:Name="UserMainControl" Width="{Binding ElementName=WindowMain, Path=ActualWidth}" 
+                                                   Height="{Binding ElementName=WindowMain, Path=ActualHeight}" Content="{Binding CurrentView}"/>
+        
+        <Button x:Name="ButtonOpenMenu" Height="40" Width="50" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E">
+            <materialDesign:PackIcon Kind="Menu" Width="30" Height="30" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
 
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Button x:Name="ButtonOpenMenu" Height="40" Width="50" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E">
-                    <materialDesign:PackIcon Kind="Menu" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Button>
-            </Grid>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Background="{x:Null}" Command="{Binding Exit}" CommandParameter="{Binding ElementName=WindowMain}" Style="{StaticResource {x:Type Button}}" BorderBrush="{x:Null}">
+            <materialDesign:PackIcon Kind="Close" VerticalAlignment="Center" Foreground="Black" Height="30"  Width="30" />
+        </Button>
 
-            <Grid x:Name="MenuContainer"  RenderTransformOrigin="0.5,0.5" Opacity="0" Grid.Column="0" Grid.Row="0" Margin="-300 0 0 0" Width="300"  HorizontalAlignment="Left" Background="#5e6877">
+        <Grid>
+            <Grid x:Name="MenuContainer" RenderTransformOrigin="0.5,0.5" Opacity="1" Width="300" Margin="-300 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="#5e6877">
                 <Grid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -173,7 +156,7 @@
                             <materialDesign:PackIcon Kind="Close" Width="30" Height="30"/>
                         </Button>
                     </Grid>
-                    <ListView>
+                    <ListView Opacity="1">
                         <ListViewItem>
                             <Grid>
                                 <StackPanel Orientation="Horizontal">
@@ -204,7 +187,7 @@
                     </ListView>
                 </StackPanel>
             </Grid>
-
         </Grid>
     </Grid>
 </Window>
+

@@ -13,7 +13,8 @@ namespace ChatCustomDisign.ViewModels
 {
     public class ChatWindowViewModel : ViewModelBase
     {
-        ObservableCollection<Person> _people;
+        //private  UserInfo;
+        private ObservableCollection<Person> _people;
 
         public ObservableCollection<Person> People
         {

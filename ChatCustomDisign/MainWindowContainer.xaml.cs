@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ChatCustomDisign.Views.Login;
+using ChatCustomDisign.Views.Profile;
 
 namespace ChatCustomDisign
 {
@@ -19,8 +21,23 @@ namespace ChatCustomDisign
     /// </summary>
     public partial class MainWindowContainer : Window
     {
+        public MainWindowContainer(UserControl userControl)
+        {
+            InitializeComponent();
+
+            this.UserMainControl = userControl;
+        }
+
         public MainWindowContainer()
         {
+            if (string.IsNullOrEmpty(Properties.Settings.Default["Token"].ToString()))
+            {
+                this.Hide();
+                var login = new LoginWindow();
+                login.Show();
+            }
+
+            this.UserMainControl  = new UserPage();
             InitializeComponent();
         }
     }
