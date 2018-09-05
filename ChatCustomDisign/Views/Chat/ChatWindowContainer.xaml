@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatCustomDisign.Views.Chat"
         mc:Ignorable="d"
-        Title="ChatWindowContainer" MinWidth="800" WindowStyle="None" BorderThickness="0" Height="700" Width="auto" WindowStartupLocation="CenterScreen">
+        Title="ChatWindowContainer" MinWidth="1200" WindowStyle="None" BorderThickness="0" MinHeight="450" Width="auto" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>

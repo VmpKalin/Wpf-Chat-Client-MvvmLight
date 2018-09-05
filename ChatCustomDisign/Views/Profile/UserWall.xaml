@@ -8,47 +8,229 @@
         xmlns:chat="clr-namespace:ChatCustomDisign.Views.Chat"
         mc:Ignorable="d"
         Title="UserWall" Width="400">
-<Window.Resources>
-    <chat:DoubleToMarginConverter x:Key="doubleToMarginConverter"/>
-</Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.25*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+    <Window.Resources>
+        <Style TargetType="{x:Type Thumb}">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border x:Name="rectangle" SnapsToDevicePixels="True" Background="Black" CornerRadius="3" Opacity="0.2" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" />
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="rectangle" Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.2" Duration="0:0:0.3" Storyboard.TargetName="rectangle" Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Margin" Value="-14 0 0 0" />
+            <Setter Property="MinWidth" Value="{Binding Width, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="Transparent">
+                            <Border Padding="0 4">
+                                <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Width="6" HorizontalAlignment="Center">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Opacity="0" Command="{x:Static ScrollBar.PageUpCommand}" />
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Opacity="0" Command="{x:Static ScrollBar.PageDownCommand}" />
+                                    </Track.IncreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb />
+                                    </Track.Thumb>
+                                </Track>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="Width" Value="Auto" />
+                    <Setter Property="MinWidth" Value="0" />
+                    <Setter Property="Height" Value="14" />
+                    <Setter Property="MinHeight" Value="{Binding Height, RelativeSource={RelativeSource Self}}" />
+                    <Setter Property="Margin" Value="0 -14 0 0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                                    <Track x:Name="PART_Track" IsEnabled="{TemplateBinding IsMouseOver}" Height="6">
+                                        <Track.DecreaseRepeatButton>
+                                            <RepeatButton Opacity="0" Command="{x:Static ScrollBar.PageLeftCommand}" />
+                                        </Track.DecreaseRepeatButton>
+                                        <Track.IncreaseRepeatButton>
+                                            <RepeatButton Opacity="0" Command="{x:Static ScrollBar.PageRightCommand}" />
+                                        </Track.IncreaseRepeatButton>
+                                        <Track.Thumb>
+                                            <Thumb />
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-        </Grid>
-        <Grid Grid.Row="1">
-            <ScrollViewer x:Name="PostsContainer" Margin="0" Padding="0" BorderThickness="0" VerticalScrollBarVisibility="Hidden" Background="LightGray">
+        <chat:DoubleToMarginConverter x:Key="doubleToMarginConverter"/>
+    </Window.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="TopContainer" Grid.Row="0" Background="White" MaxHeight="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="{x:Null}" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="ColumnDef" Width="0.25*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse x:Name="CreatingPostUserPict" Width="{Binding ElementName=ColumnDef, Path=ActualWidth}" VerticalAlignment="Center" Grid.Column="0" Margin="5 0 0 0" Height="{Binding ElementName=CreatingPostUserPict, Path=ActualWidth}" MaxWidth="90" Stroke="Transparent" StrokeThickness="0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="../../Pictures/pexels-photo-638791.jpeg" Stretch="Fill"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBox
+                        TextWrapping="Wrap"
+                        Padding="5 2 10 0"
+                        Margin="1 0 0 3"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        AcceptsReturn="True"
+                        VerticalScrollBarVisibility="Hidden"
+                        SpellCheck.IsEnabled="True"
+                        AutoWordSelection="True"
+                        materialDesign:HintAssist.Hint="Enter your post..."
+                        Width="auto"
+                        Height="auto"
+                        Grid.Column="1">
+                        Multiline.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. The quick brown fox jumps over the lazy dog. War and peace. Keep going. Go on. For how long? Not long. Lorem
+                        ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </TextBox>
+                </Grid>
+                    <Separator Margin="0" Opacity="0.5" Height="4" Background="Black" Padding="0" Width="{Binding ElementName=TopContainer, Path=ActualWidth}" HorizontalAlignment="Left" Style="{x:Null}" Grid.Row="1" />
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0">
+                    <Button Background="White" BorderThickness="0" TextBlock.Foreground="DimGray" Style="{x:Null}" BorderBrush="{x:Null}" Margin="0 0 5 0" Padding="0" >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="Send Message " FontSize="15" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                            <materialDesign:PackIcon Kind="Send" Padding="0" Margin="0" Foreground="CornflowerBlue" VerticalAlignment="Center" Height="30" Width="30" />
+                        </StackPanel>
+                    </Button>
+                    <Button Background="White" BorderThickness="0" BorderBrush="{x:Null}" TextBlock.Foreground="DimGray" Style="{x:Null}" Margin="5 0" Padding="0" >
+                        <materialDesign:PackIcon Kind="Attachment" Padding="0" Margin="0" Foreground="CornflowerBlue" VerticalAlignment="Center" Height="30" Width="30" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Margin="0 10">
                 <ListView x:Name="Posts" Width="{Binding ElementName=PostsContainer, Path=ActualWidth}" Margin="0" Padding="0" BorderThickness="0">
                     <ListViewItem x:Name="Post" Margin="0" Padding="0" Width="{Binding ElementName=Posts, Path=ActualWidth}" HorizontalAlignment="Center" Height="auto">
-                        <Grid x:Name="PostContainer" Background="{x:Null}" Margin="0 10 0 0" HorizontalAlignment="Center" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=Posts, Path=ActualWidth,  ConverterParameter=0}" Height="auto">
+                        <Grid x:Name="PostContainer" Background="{x:Null}" Margin="0 0 0 10" HorizontalAlignment="Center" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=Posts, Path=ActualWidth,  ConverterParameter=0}" Height="auto">
                             <Grid.Effect>
-                                <DropShadowEffect BlurRadius="5" Direction="50" ShadowDepth="2" />
+                                <DropShadowEffect BlurRadius="15" Direction="-100" ShadowDepth="2" />
                             </Grid.Effect>
                             <Rectangle Fill="White" RadiusX="0" RadiusY="0"/>
-                            <Grid Margin="10">
+                            <Grid Margin="0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.1*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="0.1*"></RowDefinition>
+                                    <RowDefinition Height="0.1*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="0.1*"/>
                                 </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Button></Button>
+                                <Grid Grid.Row="0" MinHeight="40" Margin="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.25*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="0.2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse x:Name="PostUserPict" Grid.Column="0" Margin="10 5 0 5" HorizontalAlignment="Left" Height="50" Width="{Binding ElementName=PostUserPict, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Stroke="Transparent" StrokeThickness="0">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="../../Pictures/pexels-photo-638791.jpeg" Stretch="Fill"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="John Smitt" FontSize="16" FontWeight="Bold"/>
+                                            <TextBlock Text=" " FontSize="16" FontWeight="DemiBold"/>
+                                            <TextBlock Text="shared a video" FontSize="16" FontWeight="DemiBold"/>
+                                        </StackPanel>
+                                        <TextBlock Text="7 August at 8:42" FontSize="14" FontWeight="Normal"/>
+                                    </StackPanel>
+                                    <materialDesign:PopupBox Padding="0" Grid.Column="2" PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10 0">
+                                        <StackPanel Name="PopContainer" Width="140" Height="auto">
+                                            <Button Style="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" Width="{Binding ElementName=PopContainer, Path=ActualWidth}" Margin="0" HorizontalContentAlignment="Stretch">
+                                                <TextBlock Padding="5" Margin="0" FontSize="15" Width="{Binding ElementName=PopContainer, Path=ActualWidth}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">Report</TextBlock>
+                                            </Button>
+                                            <Button Style="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Width="{Binding ElementName=PopContainer, Path=ActualWidth}" Margin="0" HorizontalContentAlignment="Stretch">
+                                                <TextBlock Padding="5" Margin="0" FontSize="15" Width="{Binding ElementName=PopContainer, Path=ActualWidth}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">Reply</TextBlock>
+                                            </Button>
+                                                <!--<Button Height="25" FontSize="10" BorderThickness="0"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" Content="Help"/>-->
+                                            <Separator Margin="0" Padding="0" Style="{x:Null}"/>
+                                            <Button Style="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Width="{Binding ElementName=PopContainer, Path=ActualWidth}" Margin="0" HorizontalContentAlignment="Stretch">
+                                                <TextBlock Padding="5" Margin="0" FontSize="15" Width="{Binding ElementName=PopContainer, Path=ActualWidth}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">Close</TextBlock>
+                                            </Button>
+                                            </StackPanel>
+                                    </materialDesign:PopupBox>
+                                    <!--<Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{x:Null}" Background="{x:Null}" BorderThickness="0">
+                                        <materialDesign:PackIcon Kind="DotsHorizontal" VerticalAlignment="Center" Foreground="Black" Height="30" Width="30" />
+                                    </Button>-->
                                 </Grid>
-                                <TextBlock Grid.Row="1" FontSize="14">Text to post</TextBlock>
-                                <Image Grid.Row="2" Margin="0 10 0 0" HorizontalAlignment="Center" Source="../../Pictures/pexels-photo-192439.jpeg" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=PostContainer, Path=ActualWidth,  ConverterParameter=40}"></Image>
-                                <Grid Grid.Row="3" >
+                                <Image Grid.Row="1" Margin="0" HorizontalAlignment="Center" Stretch="UniformToFill" Source="../../Pictures/pexels-photo-192439.jpeg" Width="{Binding Converter={StaticResource doubleToMarginConverter}, ElementName=PostContainer, Path=ActualWidth,  ConverterParameter=0}"/>
+                                <TextBlock Grid.Row="2" Style="{x:Null}" FontSize="14" Padding="15 10" FontWeight="DemiBold" Foreground="Black" TextWrapping="WrapWithOverflow">" World is full of smiles whenever fwnds are with me😘😘😂😂
+                                        Missing sum1 jhiejie buton cabante😢😢kw ray kulang dre et😅😅😅" World is full of smiles whenever fwnds are with me😘😘😂😂
+                                        Missing sum1 jhiejie buton cabante😢😢kw ray kulang dre et😅😅😅Text to post
+                                </TextBlock>
+                                <Grid Grid.Row="3" MinHeight="40" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Background="{x:Null}" BorderThickness="0" Grid.Column="0" TextBlock.Foreground="Black" Margin="5">Like</Button>
-                                    <Button Background="{x:Null}" BorderThickness="0" Grid.Column="1" TextBlock.Foreground="Black" Margin="5">Comment</Button>
-                                    <Button Background="{x:Null}" BorderThickness="0" Grid.Column="2" TextBlock.Foreground="Black" Margin="5">Share</Button>
+                                    <Button Background="White" x:Name="ButtonContainer" BorderThickness="0" Grid.Column="0" TextBlock.Foreground="Black" Margin="5" Padding="0">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="Heart" Padding="0" Margin="5 0" Foreground="Red" VerticalAlignment="Center" Height="30" Width="30" />
+                                            <TextBlock Text="Like" FontSize="15" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Background="White" x:Name="ButtonContainer2" BorderThickness="0" Grid.Column="1" TextBlock.Foreground="Black" Margin="5" Padding="0">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="CommentOutline" Padding="0" Margin="5 0" Foreground="Black" VerticalAlignment="Center" Height="25" Width="25" />
+                                            <TextBlock Text="Comment" FontSize="15" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Background="White" x:Name="ButtonContainer3" BorderThickness="0" BorderBrush="{x:Null}" Grid.Column="2" TextBlock.Foreground="Black" Margin="5" Padding="0">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="ShareVariant" Padding="0" Margin="5 0" Foreground="Black" Height="25" Width="25" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Share" FontSize="15" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -67,7 +249,7 @@
                                     </Grid>
                             </materialDesign:Card>
                         </Grid>-->
-            </ScrollViewer>
         </Grid>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>

@@ -23,19 +23,22 @@
                 <ListView ItemsSource="{Binding People}" Margin="0 15" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" SelectionMode="Multiple">
                     <ListViewItem Margin="0" HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal" Margin="0">
-                            <Ellipse Height="35" Width="35" Margin="15 0" HorizontalAlignment="Center" StrokeThickness="0">
+                            <Ellipse Height="35" Width="35" Margin="15 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" StrokeThickness="0">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="../../Pictures/user (1).png" Stretch="UniformToFill"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                             <Grid Name="ContentPanel" Margin="0">
-                                <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=Message}" Height="{Binding ElementName=Message,Path=ActualHeight}" StrokeThickness="0.5" Stroke="Black" VerticalAlignment="Center">
+                                <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=Message}" Height="{Binding ElementName=Message,Path=ActualHeight}"
+                                           StrokeThickness="0.5" Stroke="Black" VerticalAlignment="Center">
                                     <Rectangle.Fill>
                                         <SolidColorBrush Color="LightGray"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                                     <StackPanel Name="Message" Orientation="Horizontal" VerticalAlignment="Center" Margin="0">
-                                        <TextBlock HorizontalAlignment="Left" Margin="10 5" TextWrapping="Wrap" MaxWidth="300">My message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yopta</TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" Margin="10 5" TextWrapping="Wrap" MaxWidth="300">My message yoptaMy message yoptaMy message yoptaMy
+                                            message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy 
+                                            message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yoptaMy message yopta</TextBlock>
                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 5"> 20:08</TextBlock>
                                     </StackPanel>
                             </Grid>
@@ -49,7 +52,8 @@
                                 </Ellipse.Fill>
                             </Ellipse>
                             <Grid Name="ContentPanel1" Margin="0">
-                                <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=Message1}" Height="{Binding ElementName=Message1,Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" StrokeThickness="0.5" Stroke="Black" VerticalAlignment="Center">
+                                <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=Message1}" Height="{Binding ElementName=Message1,Path=ActualHeight, 
+                                    UpdateSourceTrigger=PropertyChanged}" StrokeThickness="0.5" Stroke="Black" VerticalAlignment="Center">
                                     <Rectangle.Fill>
                                         <SolidColorBrush Color="LightGray"/>
                                     </Rectangle.Fill>

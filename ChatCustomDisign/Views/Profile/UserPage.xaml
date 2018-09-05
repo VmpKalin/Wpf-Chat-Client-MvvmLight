@@ -9,7 +9,7 @@
              mc:Ignorable="d">
     <!--<Setter Property="" Value=""/>-->
 
-    <UserControl.Resources>
+<UserControl.Resources>
         <Style x:Key="TopProfile" TargetType="TextBlock">
             <Setter Property="Background" Value="{x:Null}"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
